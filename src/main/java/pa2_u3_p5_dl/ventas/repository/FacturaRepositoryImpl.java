@@ -1,5 +1,7 @@
 package pa2_u3_p5_dl.ventas.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
@@ -22,7 +24,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 				Factura.class);
 		myQuery.setParameter("numero", numero);
 		Factura fact = myQuery.getSingleResult();
-		fact.getDetalleFacturas().size();  //le digo que cargue el datalle bajo demanda
+		fact.getDetalleFacturas().size(); // le digo que cargue el detalle bajo demanda
 		return fact;
 	}
 
@@ -30,6 +32,64 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	public void insertar(Factura factura) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(factura);
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturasInnerJoin() {
+		// TODO Auto-generated method stub
+		// SQL: SELECT * FROM factura f INNER JOIN detalle_factura d on
+		// f..fact_id=d.defa_id_factura
+		// select f1_0.fact_id,f1_0.fact_cedula,f1_0.fact_fecha,f1_0.fact_numero from
+		// factura f1_0 join detalle_factura df1_0 on f1_0.fact_id=df1_0.defa_id_factura
+
+		// JPQL: select f from Factura f inner join f.detalleFacturas d
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("select f from Factura f  join f.detalleFacturas d ", Factura.class);
+		// carga peresoza
+		List<Factura> lista = myQuery.getResultList();
+		for (Factura f : lista) {
+			f.getDetalleFacturas().size();
+		}
+		return lista;
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturasRightJoin() {
+		// TODO Auto-generated method stub
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("select f from Factura f right join f.detalleFacturas d ", Factura.class);
+		// LAZY: carga peresoza
+		List<Factura> lista = myQuery.getResultList();
+		for (Factura f : lista) {
+			f.getDetalleFacturas().size();
+		}
+		return lista;
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturasLeftJoin() {
+		// TODO Auto-generated method stub
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("select f from Factura f left join f.detalleFacturas d ", Factura.class);
+		// LAZY: carga peresoza
+		List<Factura> lista = myQuery.getResultList();
+		for (Factura f : lista) {
+			f.getDetalleFacturas().size();
+		}
+		return lista;
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturasFullJoin() {
+		// TODO Auto-generated method stub
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("select f from Factura f full join f.detalleFacturas d ", Factura.class);
+		// LAZY: carga peresoza
+		List<Factura> lista = myQuery.getResultList();
+		for (Factura f : lista) {
+			f.getDetalleFacturas().size();
+		}
+		return lista;
 	}
 
 }
