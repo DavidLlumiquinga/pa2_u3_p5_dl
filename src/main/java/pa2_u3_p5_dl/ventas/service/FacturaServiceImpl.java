@@ -27,27 +27,27 @@ public class FacturaServiceImpl implements IFacturaService{
 	}
 
 	@Override
-	public List<Factura> buscarFacturasInnerJoin() {
+	public List<Factura> buscarFacturasInnerJoin(String cedula) {
 		// TODO Auto-generated method stub
-		return this.iFacturaRepository.seleccionarFacturasInnerJoin();
+		return this.iFacturaRepository.seleccionarFacturasInnerJoin(cedula);
 	}
 
 	@Override
-	public List<Factura> buscarFacturasRightJoin() {
+	public List<Factura> buscarFacturasRightJoin(String cedula) {
 		// TODO Auto-generated method stub
-		return this.iFacturaRepository.seleccionarFacturasRightJoin();
+		return this.iFacturaRepository.seleccionarFacturasRightJoin(cedula);
 	}
 
 	@Override
-	public List<Factura> buscarFacturasLeftJoin() {
+	public List<Factura> buscarFacturasLeftJoin(String numero) {
 		// TODO Auto-generated method stub
-		return this.iFacturaRepository.seleccionarFacturasLeftJoin();
+		return this.iFacturaRepository.seleccionarFacturasLeftJoin(numero);
 	}
 
 	@Override
-	public List<Factura> buscarFacturasFullJoin() {
+	public List<Factura> buscarFacturasFullJoin(String numero) {
 		// TODO Auto-generated method stub
-		return this.iFacturaRepository.seleccionarFacturasFullJoin();
+		return this.iFacturaRepository.seleccionarFacturasFullJoin(numero);
 	}
 	
 }

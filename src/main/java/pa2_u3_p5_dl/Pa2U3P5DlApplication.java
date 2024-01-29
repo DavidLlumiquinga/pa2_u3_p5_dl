@@ -38,24 +38,24 @@ public class Pa2U3P5DlApplication implements CommandLineRunner {
 		
 		System.out.println("INNER JOIN");
 
-		List<Factura> lista=this.iFacturaService.buscarFacturasInnerJoin();
+		List<Factura> lista=this.iFacturaService.buscarFacturasInnerJoin("1725896520");
 		for(Factura f:lista) {
 			System.out.println(f);
 		}
 
 		System.out.println("RIGHT JOIN");
-		List<Factura> lista2=this.iFacturaService.buscarFacturasRightJoin();
+		List<Factura> lista2=this.iFacturaService.buscarFacturasRightJoin("1725896520");
 		for(Factura f:lista2) {
 			System.out.println(f.getNumero());
 		}
 		
 		System.out.println("LEFT JOIN");
-		List<Factura> lista3=this.iFacturaService.buscarFacturasLeftJoin();
+		List<Factura> lista3=this.iFacturaService.buscarFacturasLeftJoin("0001-0856");
 		for(Factura f:lista3) {
 			System.out.println(f.getNumero());
 		}
 		System.out.println("FULL JOIN");
-		List<Factura> lista4=this.iFacturaService.buscarFacturasFullJoin();
+		List<Factura> lista4=this.iFacturaService.buscarFacturasFullJoin("0001-0856");
 		for(Factura f:lista4) {
 			System.out.println(f);
 			for(DetalleFactura d:f.getDetalleFacturas()) {

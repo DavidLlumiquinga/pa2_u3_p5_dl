@@ -8,8 +8,8 @@ public interface IFacturaRepository {
 
 	public Factura seleccionarPorNumero(String numero);
 	public void insertar(Factura factura);
-	public List<Factura> seleccionarFacturasInnerJoin();
-	public List<Factura> seleccionarFacturasRightJoin();
-	public List<Factura> seleccionarFacturasLeftJoin();
-	public List<Factura> seleccionarFacturasFullJoin();
+	public List<Factura> seleccionarFacturasInnerJoin(String cedula);
+	public List<Factura> seleccionarFacturasRightJoin(String cedula);
+	public List<Factura> seleccionarFacturasLeftJoin(String numero);
+	public List<Factura> seleccionarFacturasFullJoin(String numero);
 }
