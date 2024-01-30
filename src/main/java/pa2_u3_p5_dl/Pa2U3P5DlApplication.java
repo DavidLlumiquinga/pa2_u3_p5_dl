@@ -25,7 +25,7 @@ public class Pa2U3P5DlApplication implements CommandLineRunner {
 			1.2.2  LEFT
 			1.2.3  FULL
 	2. JOIN WHERE
-	3. FETCH JOIN
+	3. FETCH JOIN: solo existe a nivel JPA
 	*/
 
 	public static void main(String[] args) {
@@ -38,28 +38,34 @@ public class Pa2U3P5DlApplication implements CommandLineRunner {
 		
 		System.out.println("INNER JOIN");
 
-		List<Factura> lista=this.iFacturaService.buscarFacturasInnerJoin("1725896520");
+		List<Factura> lista=this.iFacturaService.buscarFacturasInnerJoin();
 		for(Factura f:lista) {
-			System.out.println(f);
+			System.out.println(f.getNumero());
+//			for(DetalleFactura d: f.getDetalleFacturas()) {
+//				System.out.println(d.getNombreProducto());
+//			}
 		}
 
-		System.out.println("RIGHT JOIN");
-		List<Factura> lista2=this.iFacturaService.buscarFacturasRightJoin("1725896520");
+		System.out.println("WHERE JOIN");
+
+		List<Factura> lista2=this.iFacturaService.buscarFacturasWhereJoin();
 		for(Factura f:lista2) {
 			System.out.println(f.getNumero());
+			for(DetalleFactura d: f.getDetalleFacturas()) {
+				System.out.println(d.getNombreProducto());
+			}
+			
+			
 		}
-		
-		System.out.println("LEFT JOIN");
-		List<Factura> lista3=this.iFacturaService.buscarFacturasLeftJoin("0001-0856");
+		//FETCH eficiente en terminos de numero de consultas
+		//Native Query es mas rapido SQL puro (hibernate)
+		System.out.println("FETCH JOIN");
+
+		List<Factura> lista3=this.iFacturaService.buscarFacturasFetchJoin();
 		for(Factura f:lista3) {
 			System.out.println(f.getNumero());
-		}
-		System.out.println("FULL JOIN");
-		List<Factura> lista4=this.iFacturaService.buscarFacturasFullJoin("0001-0856");
-		for(Factura f:lista4) {
-			System.out.println(f);
-			for(DetalleFactura d:f.getDetalleFacturas()) {
-				System.out.println(d);
+			for(DetalleFactura d: f.getDetalleFacturas()) {
+				System.out.println(d.getNombreProducto());
 			}
 		}
 	}

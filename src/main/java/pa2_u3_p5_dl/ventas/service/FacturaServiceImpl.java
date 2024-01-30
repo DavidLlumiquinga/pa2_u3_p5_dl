@@ -27,9 +27,9 @@ public class FacturaServiceImpl implements IFacturaService{
 	}
 
 	@Override
-	public List<Factura> buscarFacturasInnerJoin(String cedula) {
+	public List<Factura> buscarFacturasInnerJoin() {
 		// TODO Auto-generated method stub
-		return this.iFacturaRepository.seleccionarFacturasInnerJoin(cedula);
+		return this.iFacturaRepository.seleccionarFacturasInnerJoin();
 	}
 
 	@Override
@@ -48,6 +48,18 @@ public class FacturaServiceImpl implements IFacturaService{
 	public List<Factura> buscarFacturasFullJoin(String numero) {
 		// TODO Auto-generated method stub
 		return this.iFacturaRepository.seleccionarFacturasFullJoin(numero);
+	}
+
+	@Override
+	public List<Factura> buscarFacturasWhereJoin() {
+		// TODO Auto-generated method stub
+		return this.iFacturaRepository.seleccionarFacturasWhereJoin();
+	}
+
+	@Override
+	public List<Factura> buscarFacturasFetchJoin() {
+		// TODO Auto-generated method stub
+		return this.iFacturaRepository.seleccionarFacturasFetchJoin();
 	}
 	
 }

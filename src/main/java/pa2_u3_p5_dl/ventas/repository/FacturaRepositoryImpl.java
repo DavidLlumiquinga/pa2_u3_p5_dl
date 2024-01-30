@@ -35,7 +35,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
-	public List<Factura> seleccionarFacturasInnerJoin(String cedula) {
+	public List<Factura> seleccionarFacturasInnerJoin() {
 		// TODO Auto-generated method stub
 		// SQL: SELECT * FROM factura f INNER JOIN detalle_factura d on
 		// f..fact_id=d.defa_id_factura
@@ -44,13 +44,12 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 
 		// JPQL: select f from Factura f inner join f.detalleFacturas d
 		TypedQuery<Factura> myQuery = this.entityManager
-				.createQuery("select f from Factura f  join f.detalleFacturas where f.cedula=: cedula", Factura.class);
+				.createQuery("select f from Factura f  join f.detalleFacturas d", Factura.class);
 		// carga peresoza
-		myQuery.setParameter("cedula", cedula);
 		List<Factura> lista = myQuery.getResultList();
-		for (Factura f : lista) {
-			f.getDetalleFacturas().size();
-		}
+//		for (Factura f : lista) {
+//			f.getDetalleFacturas().size();
+//		}
 		return lista;
 	}
 
@@ -93,6 +92,31 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 		for (Factura f : lista) {
 			f.getDetalleFacturas().size();
 		}
+		return lista;
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturasWhereJoin() {
+		// TODO Auto-generated method stub
+		//SQL: select f.* from factura f, detalle_factura d WHERE f.fact_id= d_defa_id_factura
+		//JPQL: select f from Factura f, DetalleFactura d where f=d.factura
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("select f from Factura f, DetalleFactura d where f=d.factura", Factura.class);
+		List<Factura> lista = myQuery.getResultList();
+		for (Factura f : lista) {
+			f.getDetalleFacturas().size();
+		}
+		return lista;
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturasFetchJoin() {
+		// TODO Auto-generated method stub
+		//JPQL: select f from Factura f join fetch f.detalleFactura d
+		// JPQL INNER JOIN: select f from Factura f inner join f.detalleFacturas d
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("select f from Factura f join fetch f.detalleFacturas d", Factura.class);
+		List<Factura> lista = myQuery.getResultList();
 		return lista;
 	}
 
