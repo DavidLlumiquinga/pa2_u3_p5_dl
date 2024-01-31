@@ -34,6 +34,8 @@ public class Factura {
 	@OneToMany(mappedBy = "factura",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<DetalleFactura> detalleFacturas;
 	
+	
+	//DTO: Patron de diseño me permite traferir datos desde el service al repository
 	// EAGER: Traer toda la informacion de la relacion, se utilice o no; siempre trae la relacion
 	
 	//LAZY: Traer la informacion bajo demanda, cuando se lo pida 
