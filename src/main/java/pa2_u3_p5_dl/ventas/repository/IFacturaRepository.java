@@ -12,4 +12,5 @@ public interface IFacturaRepository {
 	public List<Factura> seleccionarFacturasRightJoin(String cedula);
 	public List<Factura> seleccionarFacturasLeftJoin(String numero);
 	public List<Factura> seleccionarFacturasFullJoin(String numero);
+	public List<Factura> seleccionarFacturasFetchJoin();
 }

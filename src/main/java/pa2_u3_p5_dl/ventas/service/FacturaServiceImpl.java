@@ -49,5 +49,11 @@ public class FacturaServiceImpl implements IFacturaService{
 		// TODO Auto-generated method stub
 		return this.iFacturaRepository.seleccionarFacturasFullJoin(numero);
 	}
+
+	@Override
+	public List<Factura> buscarFacturasFetchJoin() {
+		// TODO Auto-generated method stub
+		return this.iFacturaRepository.seleccionarFacturasFetchJoin();
+	}
 	
 }

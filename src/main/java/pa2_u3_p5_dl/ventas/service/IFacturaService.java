@@ -12,4 +12,5 @@ public interface IFacturaService {
 	public List<Factura> buscarFacturasRightJoin(String cedula);
 	public List<Factura> buscarFacturasLeftJoin(String numero);
 	public List<Factura> buscarFacturasFullJoin(String numero);
+	public List<Factura> buscarFacturasFetchJoin();
 }

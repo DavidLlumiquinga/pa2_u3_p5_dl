@@ -62,5 +62,11 @@ public class Pa2U3P5DlApplication implements CommandLineRunner {
 				System.out.println(d);
 			}
 		}
+		System.out.println("FETCH JOIN");
+
+		List<Factura> lista5=this.iFacturaService.buscarFacturasFetchJoin();
+		for(Factura f:lista5) {
+			System.out.println(f.getNumero());
+		}
 	}
 }

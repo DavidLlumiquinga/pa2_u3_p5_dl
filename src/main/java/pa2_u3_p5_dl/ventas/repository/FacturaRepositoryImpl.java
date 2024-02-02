@@ -96,4 +96,13 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 		return lista;
 	}
 
+	@Override
+	public List<Factura> seleccionarFacturasFetchJoin() {
+		// TODO Auto-generated method stub
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("select f from Factura f join fetch f.detalleFacturas d", Factura.class);
+		List<Factura> lista = myQuery.getResultList();
+		return lista;
+	}
+
 }
