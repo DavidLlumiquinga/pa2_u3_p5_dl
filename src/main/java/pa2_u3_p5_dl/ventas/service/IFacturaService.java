@@ -3,13 +3,14 @@ package pa2_u3_p5_dl.ventas.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import pa2_u3_p5_dl.ventas.repository.modelo.Cliente;
 import pa2_u3_p5_dl.ventas.repository.modelo.Factura;
 import pa2_u3_p5_dl.ventas.repository.modelo.dto.FacturaDTO;
 
 public interface IFacturaService {
 
 	public Factura buscarPorNumero(String numero);
-	public void guardar(Factura factura);
+	public void guardar(Factura factura,Cliente cliente);
 	public List<Factura> buscarFacturasInnerJoin();
 	public List<Factura> buscarFacturasRightJoin(String cedula);
 	public List<Factura> buscarFacturasLeftJoin(String numero);
