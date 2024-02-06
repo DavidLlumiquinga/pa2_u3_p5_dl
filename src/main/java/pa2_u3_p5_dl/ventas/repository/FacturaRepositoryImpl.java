@@ -10,6 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 import pa2_u3_p5_dl.ventas.repository.modelo.Factura;
 import pa2_u3_p5_dl.ventas.repository.modelo.dto.FacturaDTO;
 
@@ -32,9 +33,37 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.MANDATORY)
 	public void insertar(Factura factura) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(factura);
+
+		/*
+		 * INSERT SI (MANDATORY)
+		 * UPDATE SI (MANDATORY)
+		 * DELETE SI (MANDATORY)
+		 * SELECT NO (MANDATORY)
+		 */
+	}
+
+	@Override
+	@Transactional(value = TxType.MANDATORY)
+	public void actualizar(Factura factura) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(factura);
+	}
+
+	@Transactional(value = TxType.NOT_SUPPORTED)
+	public Factura buscar(Integer id) {
+		return this.entityManager.find(Factura.class, id);
+	}
+
+	@Override
+	@Transactional(value = TxType.MANDATORY)
+	public void eliminar(Integer id) {
+		// TODO Auto-generated method stub
+
+		this.entityManager.remove(this.buscar(id));
 	}
 
 	@Override
@@ -125,12 +154,6 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
-	public void actualizar(Factura factura) {
-		// TODO Auto-generated method stub
-		this.entityManager.merge(factura);
-	}
-
-	@Override
 	public int actualizarFechas(LocalDateTime fechaNueva, LocalDateTime fechaActual) {
 		// TODO Auto-generated method stub
 		// JPQL: update Factura f set f.fecha =: fechaNueva where f.fecha >=
@@ -143,30 +166,21 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 		return myQuery.executeUpdate();
 	}
 
-	public Factura buscar(Integer id) {
-		return this.entityManager.find(Factura.class, id);
-	}
-
 	@Override
 	public int eliminarPorNumero(String numero) {
 		// TODO Auto-generated method stub
-		//JPQL: delete from Factura f where f.numero = :numero
-		Query myQuery=this.entityManager.createQuery("delete from Factura f where f.numero = :numero");
+		// JPQL: delete from Factura f where f.numero = :numero
+		Query myQuery = this.entityManager.createQuery("delete from Factura f where f.numero = :numero");
 		myQuery.setParameter("numero", numero);
 		return myQuery.executeUpdate();
 	}
 
 	@Override
-	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
-
-		this.entityManager.remove(this.buscar(id));
-	}
-
-	@Override
 	public List<FacturaDTO> seleccionarFacturasDTO() {
 		// TODO Auto-generated method stub
-		TypedQuery<FacturaDTO> myQuery=this.entityManager.createQuery("select new pa2_u3_p5_dl.ventas.repository.modelo.dto.FacturaDTO(f.numero,f.fecha) from Factura f ", FacturaDTO.class);
+		TypedQuery<FacturaDTO> myQuery = this.entityManager.createQuery(
+				"select new pa2_u3_p5_dl.ventas.repository.modelo.dto.FacturaDTO(f.numero,f.fecha) from Factura f ",
+				FacturaDTO.class);
 		return myQuery.getResultList();
 	}
 

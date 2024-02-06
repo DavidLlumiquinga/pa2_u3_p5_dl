@@ -99,4 +99,12 @@ public class FacturaServiceImpl implements IFacturaService {
 		// TODO Auto-generated method stub
 		return this.iFacturaRepository.seleccionarFacturasDTO();
 	}
+
+	@Override
+	@Transactional(value = TxType.MANDATORY) //obliga que desde donde se lo llama tenga una transaccion
+	public void prueba() {
+		// TODO Auto-generated method stub
+		System.out.println("Este metodo es de prueba");
+		System.out.println("Prueba: "+TransactionSynchronizationManager.isActualTransactionActive());
+	}
 }

@@ -11,6 +11,7 @@ public interface IFacturaService {
 
 	public Factura buscarPorNumero(String numero);
 	public void guardar(Factura factura,Cliente cliente);
+	public void prueba();
 	public List<Factura> buscarFacturasInnerJoin();
 	public List<Factura> buscarFacturasRightJoin(String cedula);
 	public List<Factura> buscarFacturasLeftJoin(String numero);

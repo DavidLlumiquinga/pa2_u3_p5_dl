@@ -34,7 +34,11 @@ public class Pa2U3P5DlApplication implements CommandLineRunner {
 	Cliente cli=new Cliente();
 	cli.setNombre("David");
 	cli.setApellido(null);
-	this.iFacturaService.guardar(fact,cli);
+	//this.iFacturaService.guardar(fact,cli);
+	
+	
+	System.out.println("MAIN: " +TransactionSynchronizationManager.isActualTransactionActive());
+	this.iFacturaService.prueba();
 	
 	}
 }
