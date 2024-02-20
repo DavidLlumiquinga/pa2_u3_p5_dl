@@ -1,5 +1,10 @@
 package com.uce.edu.funcional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -51,9 +56,9 @@ public class Main {
 
 		// METODOS REFERENCIADOS CONSUMER
 		System.out.println("METODOS REFERENCIADOS CONSUMER");
-		IPersonaConsumer<String> consumerMetodoRe=met:: procesar;
+		IPersonaConsumer<String> consumerMetodoRe = met::procesar;
 		consumerMetodoRe.accept("David Referenciado");
-		
+
 		// 3. PREDICATE
 		System.out.println(">>>>>>>>>>> PREDICATE <<<<<<<<<<<<");
 		// Lambda
@@ -66,12 +71,12 @@ public class Main {
 
 		// METODOS REFERENCIADOS PREDICATE
 		System.out.println("METODOS REFERENCIADOS PREDICATE");
-		IPersonaPredicate<String> predicateMetodoRe= met::evaluar;
+		IPersonaPredicate<String> predicateMetodoRe = met::evaluar;
 		System.out.println(predicateMetodoRe.evaluar("a"));
-		
-		IPersonaPredicate<Integer> predicateMetodoRe2=met:: procesar;
+
+		IPersonaPredicate<Integer> predicateMetodoRe2 = met::procesar;
 		System.out.println(predicateMetodoRe2.evaluar(5));
-		
+
 		// 4. FUNCTION
 		System.out.println(">>>>>>>>>>> FUNCTION <<<<<<<<<<<<");
 		// Lambda
@@ -100,16 +105,16 @@ public class Main {
 
 		Empleado empl = functionLambda1.aplicar(ciud);
 		System.out.println(empl);
-		
+
 		// METODOS REFERENCIADOS FUNCTION
 		System.out.println("METODOS REFERENCIADOS FUNCTION");
-		IPersonaFunction<Ciudadano, Empleado> functionMetodoRe=met::cambiar;
-		Empleado empl2=new Empleado();
+		IPersonaFunction<Ciudadano, Empleado> functionMetodoRe = met::cambiar;
+		Empleado empl2 = new Empleado();
 		empl2.setNombreCompleto("Manuel Tasiguano");
 		empl2.setPais("Ecuador");
-		Ciudadano ciud2=functionMetodoRe.aplicar(empl2);
+		Ciudadano ciud2 = functionMetodoRe.aplicar(empl2);
 		System.out.println(ciud2);
-		
+
 		System.out.println(">>>>>>>>>>> UNARY OPERATOR <<<<<<<<<<<<");
 		// Lambda
 		System.out.println("LAMBDA");
@@ -119,12 +124,71 @@ public class Main {
 		// Interface de herencia
 		IPersonaUnaryOperatorFunction<Integer> unaryOperatorLambda1 = numero -> numero + (numero * 2);
 		System.out.println(unaryOperatorLambda1.aplicar(10));
-		
+
 		// METODOS REFERENCIADOS UNARY OPERATOR
 		System.out.println("METODOS REFERENCIADOS UNARY OPERATOR");
-		IPersonaUnaryOperatorFunction<Empleado> unaryOperatorMetodoR= met::procesar;
-		Empleado empl3=unaryOperatorMetodoR.aplicar(empl2);
+		IPersonaUnaryOperatorFunction<Empleado> unaryOperatorMetodoR = met::procesar;
+		Empleado empl3 = unaryOperatorMetodoR.aplicar(empl2);
 		System.out.println(empl3);
-	}
 
+		
+		// Suplier
+		System.out.println("Supplier Java");
+		Stream<String> lista = Stream.generate(() -> "425684132" + "pais").limit(5);
+		lista.forEach(cadena -> System.out.println(cadena));
+
+		// Consumer
+		System.out.println("Consumer Java");
+		List<Integer> listaNumeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+		listaNumeros.forEach(numero -> {
+			System.out.println("Se inserto");
+			System.out.println(numero);
+		});
+		
+		// Funtion
+		System.out.println("Funtion JAVA");
+		Stream<String> listaCambiada = listaNumeros.stream().map(numero -> {
+			numero = numero * 100 / 50;
+			return "Num: " + numero.toString();
+		});
+
+		listaCambiada.forEach(cadena -> System.out.println(cadena));
+
+		Ciudadano ciud01 = new Ciudadano();
+		ciud01.setApellido("David");
+		ciud01.setNombre("Llumiquinga");
+		ciud01.setProvincia("Pichincha");
+
+		Ciudadano ciud02 = new Ciudadano();
+		ciud02.setApellido("Perez");
+		ciud02.setNombre("Juan");
+		ciud02.setProvincia("Pichincha");
+
+		Ciudadano ciud03 = new Ciudadano();
+		ciud03.setApellido("Tipan");
+		ciud03.setNombre("Pedro");
+		ciud03.setProvincia("Pichincha");
+
+		List<Ciudadano> listaCiudadano = Arrays.asList(ciud01, ciud02, ciud03);
+		Stream<Empleado> listaEmpleados = listaCiudadano.stream().map(ciudadano -> {
+			Empleado empl01 = new Empleado();
+			empl01.setNombreCompleto(ciudadano.getNombre() + " " + ciudadano.getApellido());
+			if (ciudadano.getProvincia().compareTo("Pichincha") == 0) {
+				empl01.setPais("Ecuador");
+			}
+			return empl01;
+		});
+
+		listaEmpleados.forEach(empleado -> System.out.println(empleado));
+
+		// 5. Unary Operator
+		System.out.println("Unary Operatir JAVA");
+		Stream<Integer> listaNumero2 = listaNumeros.stream().map(numero -> {
+			numero = numero * 100 / 50;
+			return numero;
+		});
+
+		listaNumero2.forEach(numero -> System.out.println(numero));
+
+	}
 }
