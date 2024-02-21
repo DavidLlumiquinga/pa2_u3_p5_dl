@@ -3,6 +3,7 @@ package pa2_u3_p5_dl.ventas.service;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
@@ -20,7 +21,10 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	@Transactional(value = TxType.REQUIRES_NEW)
+	//Para habilitar las programacion asincrona
+	@Async
 	public void guardar(Cliente cliente) {
+		
         try {
             this.iClienteRepository.insertar(cliente);
             //simulando demora por diferentes consultas
@@ -34,6 +38,8 @@ public class ClienteServiceImpl implements IClienteService {
         }
         
     }//commit
+	
+	
 	@Override
 	@Transactional(value = TxType.SUPPORTS)
 	public void pruebaSupports() {

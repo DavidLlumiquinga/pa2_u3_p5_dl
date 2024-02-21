@@ -1,17 +1,17 @@
 package pa2_u3_p5_dl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import pa2_u3_p5_dl.ventas.repository.modelo.Cliente;
 import pa2_u3_p5_dl.ventas.service.IClienteService;
 
+//No olvidar las anotaciones
 @SpringBootApplication
+@EnableAsync
 public class Pa2U3P5DlApplication implements CommandLineRunner {
 
 	@Autowired
@@ -37,7 +37,8 @@ public class Pa2U3P5DlApplication implements CommandLineRunner {
 		 * long tiempoTranscurrido=(tiempoFinal - tiempoInicial)/1000;
 		 * System.out.println("Tiempo transcurido en seg: "+tiempoTranscurrido);
 		 */
-		//Programacion en paralelo (Multihilo- MultiTherad)
+
+		// Programacion en paralelo (Multihilo- MultiTherad)
 //		System.out.println("Nombre hilo: "+Thread.currentThread().getName()); //Se
 //		long tiempoInicial = System.currentTimeMillis();
 //		List<Cliente> listaCliente = new ArrayList<>();
@@ -52,23 +53,40 @@ public class Pa2U3P5DlApplication implements CommandLineRunner {
 //
 //		long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
 //		System.out.println("Tiempo transcurido en seg: " + tiempoTranscurrido);
-	//Tiempo transcurrido == 6
-		
-		System.out.println("Nombre hilo: "+Thread.currentThread().getName()); //Se
+		// Tiempo transcurrido == 107
+
+//		System.out.println("Nombre hilo: "+Thread.currentThread().getName()); //Se
+//		long tiempoInicial = System.currentTimeMillis();
+//		List<Cliente> listaCliente = new ArrayList<>();
+//		for (int i = 1; i <= 100; i++) {
+//			Cliente cliente = new Cliente();
+//			cliente.setNombre("CN" + i);
+//			cliente.setApellido("CA" + i);
+//			listaCliente.add(cliente);
+//		}
+//		listaCliente.parallelStream().forEach(cliente -> this.iClienteService.guardar(cliente));
+//		long tiempoFinal = System.currentTimeMillis();
+//
+//		long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
+//		System.out.println("Tiempo transcurrido en seg: " + tiempoTranscurrido);
+//		
+//		//Tiempo transcurrido == 14
+
+		System.out.println("Nombre hilo: " + Thread.currentThread().getName()); // Se
 		long tiempoInicial = System.currentTimeMillis();
-		List<Cliente> listaCliente = new ArrayList<>();
-		for (int i = 1; i <= 100; i++) {
+
+		for (int i = 1; i <= 10; i++) {
 			Cliente cliente = new Cliente();
 			cliente.setNombre("CN" + i);
 			cliente.setApellido("CA" + i);
-			listaCliente.add(cliente);
+				this.iClienteService.guardar(cliente);
+		
 		}
-		listaCliente.parallelStream().forEach(cliente -> this.iClienteService.guardar(cliente));
+		
 		long tiempoFinal = System.currentTimeMillis();
 
-		long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
+		long tiempoTranscurrido = (tiempoFinal - tiempoInicial);
 		System.out.println("Tiempo transcurido en seg: " + tiempoTranscurrido);
-		
-		//Tiempo transcurrido == 1
+
 	}
 }
